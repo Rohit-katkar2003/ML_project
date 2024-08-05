@@ -1,0 +1,1 @@
+# in this file we basically training our model and evaluating it's performance
