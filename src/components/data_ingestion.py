@@ -8,6 +8,8 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 from dataclasses import dataclass # it use to names the classes
 from src.components.data_transformation import  DataTransformation
+from src.components.model_trainer import ModelTrainer , ModelTrainingConfig
+
 @dataclass  # this is decorator which help us without intializing the function
 # if u want to give input then u have to use the config word
 class DataIngestionConfig:
@@ -48,8 +50,16 @@ class DataIngestion:
             raise CustomeException(e ,sys)
 
 if __name__ == '__main__':
+
+    # importing the data
     obj = DataIngestion()
     train_data ,test_data = obj.initiate_data_ingestion()
 
+    # transforming the data
     data_trans = DataTransformation()
-    data_trans.initiate_data_transformation(train_data , test_data)
+    train_arr , test_arr , _ = data_trans.initiate_data_transformation(train_data , test_data)
+
+    # model training
+    model_trainer =ModelTrainer()
+    print(model_trainer.initiate_model_trainer(train_arr , test_arr))
+
